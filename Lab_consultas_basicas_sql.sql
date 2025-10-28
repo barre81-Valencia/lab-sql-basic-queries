@@ -28,8 +28,7 @@ FROM language;
 
 -- 3.3 Lista de nombres de todos los empleados de la staff tabla
 SELECT
-first_name,
-last_name
+first_name
 FROM staff;
 
 -- Recuperar años de lanzamiento únicos
@@ -41,22 +40,18 @@ FROM film;
 -- Conteo de registros para obtener información de la base de datos:
 -- 5.1 Determinar el número de tiendas que tiene la empresa.
 SELECT
-COUNT(store_id) AS store_number
+COUNT(DISTINCT store_id) AS store_number
 FROM store;
 
 -- 5.2 Determinar el número de empleados que tiene la empresa.
 SELECT
-COUNT(staff_id) AS staff_number
+COUNT(DISTINCT staff_id) AS staff_number
 FROM staff;
 
 -- 5.3 Determinar cuántas películas están disponibles para alquilar y cuántas ya se han alquilado.
 SELECT
-COUNT(inventory_id) AS total_film_number
-FROM inventory;
-
-SELECT
-COUNT(rental_id) AS total_rent_number
-FROM rental;
+COUNT(title) AS total_film_number
+FROM film;
 
 SELECT
 COUNT(rental_id) AS film_rented
@@ -70,7 +65,8 @@ COUNT(DISTINCT last_name) AS last_name_number
 FROM actor;
 
 -- Recupera las 10 películas más largas.
-SELECT *
+SELECT
+title
 FROM film
 ORDER BY length DESC
 LIMIT 10;
@@ -80,17 +76,17 @@ LIMIT 10;
 SELECT
 first_name
 FROM actor
-WHERE first_name LIKE ('%scarlett%');
+WHERE first_name = 'SCARLETT';
 
 -- 7.2 Recuperar todas las películas que tengan ARMAGEDDON en su título y tengan una duración mayor a 100 minutos.
 SELECT
 title
 FROM film
-WHERE title LIKE ('%armageddon%') AND length > 100;
+WHERE title LIKE ('%ARMAGEDDON%') AND length > 100;
 
 -- 7.3 Determinar el número de películas que incluyen contenido detrás de escena (behind the scenes)
 SELECT
 COUNT(special_features) AS behind_scene_number
 FROM film
-WHERE special_features IN ('behind the scenes');
+WHERE special_features LIKE '%behind the scenes%';
 
